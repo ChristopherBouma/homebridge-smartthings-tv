@@ -510,6 +510,7 @@ ping command fails mostly because of permission issues - falling back to SmartTh
     inputSourceService
       .setCharacteristic(this.platform.Characteristic.Identifier, this.inputSources.length)
       .setCharacteristic(this.platform.Characteristic.ConfiguredName, name)
+      .setCharacteristic(this.platform.Characteristic.Name, name)
       .setCharacteristic(this.platform.Characteristic.IsConfigured, this.platform.Characteristic.IsConfigured.CONFIGURED)
       .setCharacteristic(this.platform.Characteristic.InputSourceType, this.guessInputSourceType(id));
     this.service.addLinkedService(inputSourceService);
@@ -540,7 +541,7 @@ ping command fails mostly because of permission issues - falling back to SmartTh
     const status = await this.client.devices.getCapabilityStatus(this.device.deviceId, this.component.id, 'custom.picturemode');
     const supportedPictureModes = [...new Set(status.supportedPictureModesMap.value as Array<SamsungVdMediaInputSource>)];
     for (const pictureMode of supportedPictureModes) {
-      this.registerPictureMode(pictureMode.id, pictureMode.name, 'Picture: ' + pictureMode.name);
+      this.registerPictureMode(pictureMode.id, pictureMode.name, pictureMode.name);
     }
   }
 
@@ -574,7 +575,7 @@ ping command fails mostly because of permission issues - falling back to SmartTh
     const status = await this.client.devices.getCapabilityStatus(this.device.deviceId, this.component.id, 'custom.soundmode');
     const supportedSoundModes = [...new Set(status.supportedSoundModesMap.value as Array<SamsungVdMediaInputSource>)];
     for (const soundMode of supportedSoundModes) {
-      this.registerSoundMode(soundMode.id, soundMode.name, 'Sound: ' + soundMode.name);
+      this.registerSoundMode(soundMode.id, soundMode.name, soundMode.name);
     }
   }
 
